@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d6efd">
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz - Cybersecurity Awareness</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .quiz-box { max-width: 800px; margin: 1.2rem auto; padding: 1rem; background:#fff; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .question { margin-bottom: 1rem; }
+    .choices button { display:block; width:100%; text-align:left; margin:0.4rem 0; padding:0.6rem; border-radius:6px; border:1px solid #d0d0d0; background:#fafafa; cursor:pointer; }
+    .choices button.correct { background: #e6fff0; border-color: #48c774; }
+    .choices button.wrong { background: #fff0f0; border-color: #e05b5b; }
+    .choices button:disabled { opacity: 0.7; cursor: default; }
+    .controls { display:flex; gap:0.6rem; justify-content:flex-end; margin-top:0.8rem; }
+    .score { font-weight:700; font-size:1.05rem; margin-top:0.6rem; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <!-- Dot grid canvas -->
+  <canvas id="dotGrid"></canvas>
+  <header>
+    <h1 class="typewriter">Interactive Quiz</h1>
+        <nav>
+            <a href="index.html" data-aos="zoom-in">Home</a> |
+            <a href="about.html" data-aos="zoom-in">About</a> |
+            <a href="learn.html" data-aos="zoom-in">Learn</a> |
+            <a href="demo.html" data-aos="zoom-in">Demo</a> |
+            <a href="Practise.html" data-aos="zoom-in">Try</a> |
+            <a href="quiz.html" data-aos="zoom-in"> Quiz</a> |
+            <a href="portfolio.html" data-aos="zoom-in">About me</a> 
+        </nav>
+  </header>
+
+  <main>
+    <div class="quiz-box" id="quizBox" data-aos="fade-down" data-aos-delay="200" data-aos-duration="1000">
+      <h2 id="qTitle" data-aos="zoom-in">Test Your Cyber Awareness</h2>
+      <div id="questionArea">
+        <!-- question injected here -->
+      </div>
+
+      <div class="controls">
+        <button id="prevBtn" class="btn btn-secondary">Previous</button>
+        <button id="nextBtn" class="btn btn-primary">Next</button>
+      </div>
+
+      <p class="score hidden" id="scoreText"></p>
+
+      <div id="endControls" class="hidden" style="margin-top:0.8rem;">
+        <button id="reviewBtn" class="btn btn-secondary">Review Answers</button>
+        <button id="retryBtn" class="btn btn-secondary">Retry Quiz</button>
+        <button id="certBtn" class="btn btn-primary">Download Certificate (if passed)</button>
+      </div>
+
+      <div id="reviewArea" class="hidden" style="margin-top:1rem;"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p align="center" data-aos="fade-up">&copy; 2025 Naveed Ahamed. All content is for educational purposes only.</p>
+  </footer>
+
+  <!-- jsPDF for certificate generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Quiz data — you can edit or expand this array
+    const QUESTIONS = [
+      {
+        q: "What is a phishing attack?",
+        choices: [
+          "A fake email or website to steal information",
+          "A hardware device used to protect passwords",
+          "A software that speeds up your internet"
+        ],
+        answer: 0
+      },
+      {
+        q: "Which of these is a sign of a phishing email?",
+        choices: [
+          "Generic greeting and spelling mistakes",
+          "Sender from your colleague's exact email domain",
+          "A long personalized account statement"
+        ],
+        answer: 0
+      },
+      {
+        q: "Before entering credentials, you should check:",
+        choices: [
+          "If the page uses HTTPS and the URL looks correct",
+          "How many images the page has",
+          "If the page background is a light color"
+        ],
+        answer: 0
+      },
+      {
+        q: "If you suspect a link is malicious, you should:",
+        choices: [
+          "Click it quickly to see what happens",
+          "Hover over it to check the real URL or navigate to the site manually",
+          "Forward it to everyone to warn them"
+        ],
+        answer: 1
+      }
+    ];
+
+    // State
+    let current = 0;
+    let userAnswers = new Array(QUESTIONS.length).fill(null);
+    let score = 0;
+
+    // Elements
+    const qTitle = document.getElementById('qTitle');
+    const questionArea = document.getElementById('questionArea');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const scoreText = document.getElementById('scoreText');
+    const endControls = document.getElementById('endControls');
+    const reviewBtn = document.getElementById('reviewBtn');
+    const retryBtn = document.getElementById('retryBtn');
+    const certBtn = document.getElementById('certBtn');
+    const reviewArea = document.getElementById('reviewArea');
+
+    function renderQuestion(index) {
+      const q = QUESTIONS[index];
+      questionArea.innerHTML = `
+        <div class="question">
+          <p><strong>Question ${index+1} of ${QUESTIONS.length}:</strong></p>
+          <p>${q.q}</p>
+        </div>
+        <div class="choices" id="choices"></div>
+      `;
+
+      const choicesDiv = document.getElementById('choices');
+      q.choices.forEach((c, i) => {
+        const btn = document.createElement('button');
+        btn.innerText = c;
+        btn.onclick = () => selectAnswer(index, i, btn);
+        // If user previously answered, disable and style
+        if (userAnswers[index] !== null) {
+          btn.disabled = true;
+          if (userAnswers[index] === i) {
+            btn.classList.add(userAnswers[index] === q.answer ? 'correct' : 'wrong');
+          }
+        }
+        choicesDiv.appendChild(btn);
+      });
+
+      // Update navigation buttons
+      prevBtn.disabled = index === 0;
+      nextBtn.innerText = (index === QUESTIONS.length - 1) ? 'Submit' : 'Next';
+    }
+
+    function selectAnswer(qIndex, choiceIndex, btn) {
+      // If already answered, ignore
+      if (userAnswers[qIndex] !== null) return;
+
+      userAnswers[qIndex] = choiceIndex;
+
+      const buttons = document.querySelectorAll('#choices button');
+      buttons.forEach((b, i) => {
+        b.disabled = true;
+        if (i === choiceIndex) {
+          if (choiceIndex === QUESTIONS[qIndex].answer) {
+            b.classList.add('correct');
+            score++;
+          } else {
+            b.classList.add('wrong');
+            // optionally highlight correct
+            buttons[QUESTIONS[qIndex].answer].classList.add('correct');
+          }
+        }
+      });
+
+      // If this was last question, show results
+      if (qIndex === QUESTIONS.length - 1) {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const pct = Math.round((score / QUESTIONS.length) * 100);
+      scoreText.classList.remove('hidden');
+      scoreText.innerText = `Your score: ${score} / ${QUESTIONS.length} (${pct}%)`;
+      endControls.classList.remove('hidden');
+      nextBtn.disabled = true;
+      prevBtn.disabled = true;
+
+      // Reveal review button always; certificate only if pct >= 60
+      certBtn.disabled = pct < 60;
+      if (pct < 60) {
+        certBtn.title = "You need at least 60% to download a certificate.";
+      } else {
+        certBtn.title = "You passed! Click to download your certificate.";
+      }
+    }
+
+    function resetQuiz() {
+      current = 0;
+      userAnswers = new Array(QUESTIONS.length).fill(null);
+      score = 0;
+      scoreText.classList.add('hidden');
+      endControls.classList.add('hidden');
+      reviewArea.classList.add('hidden');
+      reviewArea.innerHTML = '';
+      nextBtn.disabled = false;
+      prevBtn.disabled = false;
+      renderQuestion(current);
+    }
+
+    // Navigation
+    nextBtn.addEventListener('click', () => {
+      if (current < QUESTIONS.length - 1) {
+        current++;
+        renderQuestion(current);
+      } else {
+        // Submit if last
+        showResults();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (current > 0) {
+        current--;
+        renderQuestion(current);
+      }
+    });
+
+    reviewBtn.addEventListener('click', () => {
+      reviewArea.classList.remove('hidden');
+      reviewArea.innerHTML = '';
+      QUESTIONS.forEach((q, i) => {
+        const user = userAnswers[i];
+        const correct = q.answer;
+        const block = document.createElement('div');
+        block.style.padding = '0.6rem';
+        block.style.borderBottom = '1px solid #eee';
+        block.innerHTML = `<p><strong>Q${i+1}:</strong> ${q.q}</p>`;
+        q.choices.forEach((c, idx) => {
+          const span = document.createElement('div');
+          span.style.padding = '0.25rem 0';
+          if (idx === correct) span.style.fontWeight = '700';
+          if (user === idx) {
+            span.style.background = (user === correct) ? '#e6fff0' : '#fff0f0';
+          }
+          span.innerText = (idx === correct ? '✔ ' : '') + c;
+          block.appendChild(span);
+        });
+        reviewArea.appendChild(block);
+      });
+      reviewArea.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    retryBtn.addEventListener('click', resetQuiz);
+
+    certBtn.addEventListener('click', async () => {
+      const pct = Math.round((score / QUESTIONS.length) * 100);
+      if (pct < 60) {
+        alert('You need at least 60% to get a certificate. Try again!');
+        return;
+      }
+
+      // Generate certificate using jsPDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'pt',
+        format: 'a4'
+      });
+
+      const name = prompt('Enter the name to put on the certificate:', 'Student Name') || 'Student Name';
+      const title = 'Certificate of Completion';
+      doc.setFontSize(28);
+      doc.text(title, doc.internal.pageSize.getWidth()/2, 120, { align: 'center' });
+
+      doc.setFontSize(16);
+      doc.text(`This certifies that`, doc.internal.pageSize.getWidth()/2, 180, { align: 'center' });
+
+      doc.setFontSize(20);
+      doc.text(name, doc.internal.pageSize.getWidth()/2, 220, { align: 'center' });
+
+      doc.setFontSize(14);
+      doc.text(`has successfully completed the Cybersecurity Awareness Quiz with a score of ${score}/${QUESTIONS.length} (${pct}%).`, doc.internal.pageSize.getWidth()/2, 260, { align: 'center' });
+
+      doc.setFontSize(12);
+      const today = new Date().toLocaleDateString();
+      doc.text(`Date: ${today}`, 80, doc.internal.pageSize.getHeight() - 80);
+
+      doc.save(`Cyber_Awareness_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
+    });
+
+    // Initialize
+    renderQuestion(current);
+  </script>
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // animation duration in ms
+    once: true     // animation happens only once
+  });
+</script>
+<script src="js/dotGrid.js"></script>
+</body>
+</html>

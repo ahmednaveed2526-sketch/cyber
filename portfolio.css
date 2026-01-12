@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 20px;
+}
+
+nav {
+  background-color: #333;
+  text-align: center;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+footer {
+  background-color: #222;
+  color: gray;
+  text-align: center;
+  padding: 10px;
+}
+
+.circle-image {
+  width: 200px;       /* Set the size you want */
+  height: 200px;      /* Keep width and height equal for a perfect circle */
+  border-radius: 50%; /* This makes the square image a circle */
+  object-fit: cover;  /* Ensures the image covers the area without stretching */
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Cybersecurity Awareness</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Dot grid canvas -->
+  <canvas id="dotGrid"></canvas>
+    <header>
+        <h1 class="typewriter">Demo: Safe Phishing Simulation</h1>
+        <nav>
+            <a href="index.html" data-aos="zoom-in">Home</a> |
+            <a href="about.html" data-aos="zoom-in">About</a> |
+            <a href="learn.html" data-aos="zoom-in">Learn</a> |
+            <a href="demo.html" data-aos="zoom-in">Demo</a> |
+            <a href="Practise.html" data-aos="zoom-in">Try</a> |
+            <a href="quiz.html" data-aos="zoom-in">Quiz</a> |
+            <a href="portfolio.html" data-aos="zoom-in">About me</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2 data-aos="fade-up">What is phishing ?</h2>
+        <p data-aos="fade-up" data-aos-delay="100">This video will give you an idea about what phishing really is, instead of hard words, codes and etc. This will tell you how a phishing link works, looks and does using a clean, understandable video.</p>
+
+        <!-- Video placeholder -->
+        <video width="600" controls data-aos="fade-up" align="center">
+            <source src="assets/videos/Phishing Attack.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <p data-aos="fade-up" data-aos-delay="300">Hope you got an idea how a phishing link works.So lets head for a real life demonstration where you will understand it more precisely.<a href="Practise.html"> Click Here </a>to try the demo.</p>
+    </main>
+
+    <footer>
+        <p align="Center" data-aos="fade-up">&copy; 2025 Naveed Ahamed. All content is for educational purposes only.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // animation duration in ms
+    once: true     // animation happens only once
+  });
+</script>
+<script src="js/dotGrid.js"></script>
+</body>
+</html>

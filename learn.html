@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Module - Cybersecurity Awareness</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .lesson { display: none; padding: 1rem; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 1rem; }
+        .lesson.active { display: block; }
+        .controls { text-align: center; margin-top: 1rem; }
+        .progress-bar { height: 20px; background: #eee; border-radius: 10px; overflow: hidden; margin-bottom: 1rem; }
+        .progress-fill { height: 100%; width: 0%; background: #4caf50; transition: width 0.3s ease; }
+        button { padding: 0.5rem 1rem; margin: 0.2rem; cursor: pointer; border-radius: 6px; border: none; background: #007bff; color: #fff; }
+        button:disabled { background: #aaa; cursor: default; }
+    </style>
+</head>
+<body>
+  <!-- Dot grid canvas -->
+  <canvas id="dotGrid"></canvas>
+    <header>
+        <h1 class="typewriter">Cybersecurity Learning Module</h1>
+        <nav>
+            <a href="index.html" data-aos="zoom-in">Home</a> |
+            <a href="about.html" data-aos="zoom-in">About</a> |
+            <a href="learn.html"data-aos="zoom-in">Learn</a> |
+            <a href="demo.html"data-aos="zoom-in">Demo</a> |
+            <a href="Practise.html"data-aos="zoom-in">Try</a> |
+            <a href="quiz.html"data-aos="zoom-in">Quiz</a>
+            <a href="portfolio.html" data-aos="zoom-in">About me</a> 
+        </nav>
+    </header>
+
+    <main>
+        <div class="progress-bar" data-aos="zoom-in">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="lesson active" id="lesson0" data-aos="fade-down" data-aos-delay="200" data-aos-duration="1000">
+            <h3>1. What is Cybersecurity?</h3>
+            <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These attacks often aim to access, change, or destroy sensitive information or interrupt normal operations.</p>
+        </div>
+
+        <div class="lesson" id="lesson1" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+            <h3>2. Understanding Phishing Attacks</h3>
+            <p>Phishing is when cybercriminals send fake emails or create websites pretending to be trusted organizations. Their goal is to trick people into revealing sensitive information like passwords or credit card numbers.</p>
+            <p><strong>Tip:</strong> Always check the website URL and never share your login info unless you are sure the site is genuine.</p>
+        </div>
+
+        <div class="lesson" id="lesson2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+            <h3>3. Password Safety</h3>
+            <p>Using strong passwords is one of the easiest ways to protect your accounts. A strong password should be at least 12 characters long, combining letters, numbers, and special symbols.</p>
+            <p><em>Tip:</em> Avoid using the same password on multiple websites.</p>
+        </div>
+
+        <div class="lesson" id="lesson3" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+            <h3>4. Ethical Hacking</h3>
+            <p>Ethical hackers use their technical skills to help organizations find and fix security vulnerabilities. Unlike malicious hackers, they work to protect systems, not exploit them.</p>
+            <p><em>Example:</em> Penetration testers simulate cyberattacks to identify weaknesses before real hackers can find them.</p>
+        </div>
+
+        <div class="lesson" id="lesson4" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+            <h3>5. Protecting Yourself Online</h3>
+            <ul>
+                <li>Keep your software updated.</li>
+                <li>Don’t click on suspicious links or attachments.</li>
+                <li>Use two-factor authentication (2FA) whenever possible.</li>
+                <li>Be cautious when using public Wi-Fi networks.</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" disabled data-aos="zoom-in">Previous</button>
+            <button id="nextBtn" data-aos="zoom-in">Next</button>
+        </div>
+    </main>
+
+    <footer>
+        <p align="center" data-aos="fade-up">&copy; 2025 Naveed Ahamed. All content is for educational purposes only.</p>
+    </footer>
+
+    <script src="js/learn.js"></script>
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // animation duration in ms
+    once: true     // animation happens only once
+  });
+</script>
+<script src="js/dotGrid.js"></script>
+</body>
+</html>

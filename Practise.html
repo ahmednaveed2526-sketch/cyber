@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d6efd">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demo - Cybersecurity Awareness</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Simulation-specific styles */
+    .sim-banner {
+      background: #ffdddd;
+      color: #800;
+      padding: 0.6rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 1.5rem auto;
+      padding: 1rem;
+    }
+
+    .email-card {
+      border: 1px solid #ccc;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .email-from {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .email-subject {
+      color: #333;
+      margin-bottom: 0.6rem;
+    }
+
+    .fake-link {
+      display: inline-block;
+      padding: 0.5rem 0.8rem;
+      background: #0066cc;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 0.6rem;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal {
+      background: #fff;
+      padding: 1.2rem;
+      border-radius: 8px;
+      width: 420px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      padding: 0.6rem 0.9rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary { background: #0066cc; color: #fff; }
+    .btn-secondary { background: #eee; color: #333; }
+
+    .result-card {
+      border: 1px solid #cfc;
+      background: #f7fff7;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+    }
+
+    .tips {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background: #f0f8ff;
+      border-radius: 6px;
+      border: 1px solid #dbeeff;
+    }
+
+    /* small responsive */
+    @media (max-width: 480px) {
+      .modal { width: 92%; }
+      video { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dot grid canvas -->
+  <canvas id="dotGrid"></canvas>
+  <header>
+    <h1 class="typewriter">Demo:Phishing Simulation</h1>
+        <nav>
+            <a href="index.html" data-aos="zoom-in">Home</a> |
+            <a href="about.html" data-aos="zoom-in">About</a> |
+            <a href="learn.html" data-aos="zoom-in">Learn</a> |
+            <a href="demo.html" data-aos="zoom-in">Demo</a> |
+            <a href="Practise.html" data-aos="zoom-in">Try</a> |
+            <a href="quiz.html" data-aos="zoom-in">Quiz</a> |
+            <a href="portfolio.html" data-aos="zoom-in">About me</a>  
+        </nav>
+  </header>
+
+  <!-- CLEAR SIMULATION BANNER -->
+  <div class="sim-banner" data-aos="fade-left">SIMULATION MODE — MOCK DATA ONLY. NO REAL CREDENTIALS ARE USED.</div>
+
+  <main class="container">
+    <h2 data-aos="fade-up">Try this demo to understand the process</h2>
+    <p data-aos="fade-up" data-aos-delay="100">
+      This simulation shows how a typical phishing email lures a victim to a fake login page.
+      <strong>Everything here is simulated and runs only in your browser.</strong>
+    </p>
+
+    <button id="startBtn" class="btn btn-primary" data-aos="fade-up">Start Simulation (Requires Consent)</button>
+
+    <!-- Video placeholder (optional) -->
+    <section style="margin-top:1rem;">
+      <h3 data-aos="fade-up">Demo video</h3>
+      <p data-aos="fade-up">This will show you how a phishing link works in real life.<br></p>
+         <p data-aos="fade-up">(NOTE:- This demostration is for educational purpose only !)</p>
+      <video width="600" controls data-aos="fade-up">
+        <source src="assets/videos/DEMO.mp4" type="video/mp4" />
+        Your browser does not support the video tag or the demo video is missing.
+      </video>
+    </section>
+
+    <!-- Email card (hidden until simulation starts) -->
+    <section id="emailSection" style="margin-top:1.2rem; display:none;">
+      <div class="email-card" aria-live="polite">
+        <div class="email-from">From: <span style="color:#b30000">support@bankofexamp1e.com</span></div>
+        <div class="email-subject">Subject: Urgent: Verify your account to avoid suspension</div>
+        <p>Dear user,</p>
+        <p>We detected unusual activity on your account. Please verify your identity immediately to avoid suspension.</p>
+        <div>
+          <a id="phishLink" class="fake-link" role="button">Verify your account</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overlay login form -->
+    <div id="loginOverlay" class="overlay" style="display:none;">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <h3 id="loginTitle">Bank of Example — Secure Login</h3>
+        <p style="font-size:0.9rem; color:#666;">This is a <strong>simulated</strong> fake login for demo purposes only.</p>
+        <div class="login-box">
+          <label for="simUser">Email or username</label>
+          <input id="simUser" type="text" placeholder="yourname@example.com" autocomplete="off" />
+          <label for="simPass">Password</label>
+          <input id="simPass" type="password" placeholder="password" autocomplete="off" />
+          <div style="margin-top:0.6rem; display:flex; gap:0.5rem; justify-content:flex-end;">
+            <button id="cancelLogin" class="btn btn-secondary">Cancel</button>
+            <button id="submitLogin" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attacker dashboard (simulated) -->
+    <section id="attackerSection" style="display:none;">
+      <div class="result-card" role="status" aria-live="polite">
+        <h3>Simulated Attacker Dashboard</h3>
+        <p><strong>Captured credentials (SIMULATION)</strong> — these are mock values and never leave your browser:</p>
+        <pre id="capturedOutput" style="background:#fff;padding:0.6rem;border-radius:4px;border:1px solid #ddd;">(no data)</pre>
+
+        <div class="tips">
+          <h4>What happened?</h4>
+          <p>The user clicked a link in an email and entered credentials on a page that looked legitimate but was fake. In a real attack, those details would be sent to the attacker.</p>
+          <h4>How to protect yourself</h4>
+          <ul>
+            <li>Check the sender email carefully (look for typos and odd domains).</li>
+            <li>Hover over links to see the real destination before clicking.</li>
+            <li>Look for HTTPS and certificates, but don't rely on them alone.</li>
+            <li>When in doubt, navigate directly to the website rather than clicking email links.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:0.8rem;">
+          <button id="restartBtn" class="btn btn-secondary">Restart Simulation</button>
+          <a href="quiz.html" class="btn btn-primary" style="margin-left:0.5rem;">Take the Quiz</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p align="center" data-aos="fade-up">&copy; 2025 Naveed Ahamed. All content is for educational purposes only.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /*********************
+     * Safe client-side simulation logic
+     * Everything stays in the user's browser. No data is sent anywhere.
+     *********************/
+
+    // Elements
+    const startBtn = document.getElementById('startBtn');
+    const emailSection = document.getElementById('emailSection');
+    const phishLink = document.getElementById('phishLink');
+    const loginOverlay = document.getElementById('loginOverlay');
+    const submitLogin = document.getElementById('submitLogin');
+    const cancelLogin = document.getElementById('cancelLogin');
+    const simUser = document.getElementById('simUser');
+    const simPass = document.getElementById('simPass');
+    const attackerSection = document.getElementById('attackerSection');
+    const capturedOutput = document.getElementById('capturedOutput');
+    const restartBtn = document.getElementById('restartBtn');
+
+    // Consent modal behavior (simple built-in)
+    function askConsentThenStart() {
+      const consent = confirm("This is a simulated demo using MOCK credentials and runs locally in your browser. Do you consent to run the simulation?");
+      if (consent) {
+        startSimulation();
+      } else {
+        alert("Simulation cancelled. You can still view the video or read the materials.");
+      }
+    }
+
+    // Start the simulation: reveal the phishing email
+    function startSimulation() {
+      startBtn.disabled = true;
+      emailSection.style.display = 'block';
+      attackerSection.style.display = 'none';
+      loginOverlay.style.display = 'none';
+      simUser.value = '';
+      simPass.value = '';
+      capturedOutput.innerText = '(no data)';
+      window.scrollTo({ top: emailSection.offsetTop - 40, behavior: 'smooth' });
+    }
+
+    // When user clicks the fake link, show the fake login overlay
+    phishLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      // small delay to simulate navigation
+      setTimeout(() => {
+        loginOverlay.style.display = 'flex';
+        simUser.focus();
+      }, 250);
+    });
+
+    // Cancel login
+    cancelLogin.addEventListener('click', function () {
+      loginOverlay.style.display = 'none';
+    });
+
+    // Submit login — SIMULATED capture only
+    submitLogin.addEventListener('click', function () {
+      const userVal = simUser.value.trim() || 'mock.user@example.com';
+      const passVal = simPass.value ? '●●●●●●●' : '(no password entered)';
+
+      // Close overlay
+      loginOverlay.style.display = 'none';
+
+      // Show simulated attacker dashboard with "captured" values
+      capturedOutput.textContent = `username: ${userVal}\npassword: ${passVal}\n\nNOTE: This is a SIMULATION — these values are mock and never leave your browser.`;
+
+      attackerSection.style.display = 'block';
+      // Accessibility/announce
+      attackerSection.querySelector('[role="status"]').focus?.();
+
+      // Scroll to results
+      setTimeout(() => {
+        attackerSection.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    });
+
+    // Restart simulation
+    restartBtn.addEventListener('click', function () {
+      startBtn.disabled = false;
+      emailSection.style.display = 'none';
+      attackerSection.style.display = 'none';
+      simUser.value = '';
+      simPass.value = '';
+      capturedOutput.innerText = '(no data)';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Hook start button
+    startBtn.addEventListener('click', askConsentThenStart);
+  </script>
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // animation duration in ms
+    once: true     // animation happens only once
+  });
+</script>
+<script src="js/dotGrid.js"></script>
+</body>
+</html>

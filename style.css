@@ -1,0 +1,712 @@
+/* Dot Grid Background (like React Bits) */
+body {
+  background-color: #0d1117; /* dark theme base */
+  background-image: 
+    radial-gradient(#39d353 1px, transparent 1px),
+    radial-gradient(#39d353 1px, transparent 1px);
+  background-size: 40px 40px; /* distance between dots */
+  background-position: 0 0, 20px 20px; /* stagger the two layers for grid effect */
+}
+@keyframes moveGrid {
+  0% { background-position: 0 0, 20px 20px; }
+  50% { background-position: 10px 10px, 30px 30px; }
+  100% { background-position: 0 0, 20px 20px; }
+}
+
+body {
+  animation: moveGrid 20s linear infinite;
+}
+/* === CYBER GLOW TITLE EFFECT === */
+.typewriter {
+    font-size: 3.5em;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, 
+        #00ffff 0%, 
+        #ff1493 25%, 
+        #4169e1 50%, 
+        #ff69b4 75%, 
+        #00bfff 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    animation: gradientShift 4s ease infinite, 
+               textGlow 3s ease-in-out infinite alternate,
+               float 6s ease-in-out infinite;
+    position: relative;
+    margin: 20px 0;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    letter-spacing: 2px;
+}
+
+/* === Dark Theme Layer (add on top of existing CSS) === */
+:root {
+  --bg-color: #0d1117;
+  --card-bg: #161b22;
+  --text-color: #c9d1d9;
+  --accent: #58a6ff;
+  --accent-hover: #79b8ff;
+}
+
+/* Global dark mode */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar */
+nav {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid #30363d;
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+/* Buttons */
+button {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Cards, quiz boxes, sections */
+section, .card, .quiz-box {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  padding: 16px;
+  margin: 12px 0;
+}
+
+/* Links */
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Footer (centered and neat) */
+footer {
+  background-color: var(--card-bg);
+  text-align: center;
+  padding: 12px 0;
+  color: var(--text-color);
+  border-top: 1px solid #30363d;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+/* ===== GLOBAL STYLES ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+}
+
+
+a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #1f6feb;
+}
+
+/* ===== HEADER ===== */
+header {
+    background-color: #161b22;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2rem;
+    color: #58a6ff;
+}
+
+nav a {
+    margin: 0 0.5rem;
+    font-weight: 500;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ===== CARD STYLE SECTIONS ===== */
+section, .lesson, .quiz-box, .demo-box {
+    background-color: #161b22;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(88,166,255,0.3);
+}
+
+/* ===== HEADINGS ===== */
+h2, h3 {
+    color: #58a6ff;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    background-color: #238636;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 12px #39d353;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #444c56;
+    cursor: default;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+    height: 20px;
+    background-color: #21262d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #39d353;
+    transition: width 0.3s ease;
+}
+
+/* ===== QUIZ BOX ===== */
+.quiz-box {
+    padding: 1rem;
+.choices button {
+    display: block;
+    width: 100%;
+    margin: 0.3rem 0;
+    text-align: left;
+    background-color: #21262d;
+    border: 1px solid #30363d;
+    color: #ffffff; /* ← added so text is visible */
+    font-weight: 500;
+}
+
+.choices button:hover {
+    background-color: #30363d; /* slightly lighter on hover */
+    color: #ffffff;
+}
+
+.choices button.correct {
+    background-color: #0e4429; /* green for correct */
+    color: #ffffff;
+}
+
+.choices button.wrong {
+    background-color: #67060c; /* red for wrong */
+    color: #ffffff;
+}
+
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #161b22;
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    nav a { display: block; margin: 0.3rem 0; }
+    main { padding: 0 0.5rem; }
+    button { width: 100%; margin-bottom: 0.5rem; }
+}
+}
+/*==== portofolio ====*/
+
+.circle-image {
+  width: 200px;       /* Set the size you want */
+  height: 200px;      /* Keep width and height equal for a perfect circle */
+  border-radius: 50%; /* This makes the square image a circle */
+  object-fit: cover;  /* Ensures the image covers the area without stretching */
+}
+.profile-pic {
+  position: relative;
+  width: 200px;        /* your image size */
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;          /* keep image above the glow */
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+}
+html{
+  font-family: Poppins, 'Segoe UI', sans-serif;
+}
+body{
+  min-height: 100vh;
+  display: grid;
+}
+.socials-container{
+  display: flex;
+  gap: 20px;
+}
+.socials-container a{
+  background-color: lightblue;
+  padding: 1em;
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.socials-container a svg{
+  height: 32px;
+}
+.socials-container a::before{
+  content: attr(data-social);
+  position: absolute;
+  background-color: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 100px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  transform: translateY(-30px) rotate(25deg);
+  opacity: 0;
+  transition: 200ms cubic-bezier(.42,0,.44,1.68);
+}
+.socials-container a:hover{
+  background-color: var(--accent-color);
+  fill:white;
+}
+.socials-container a::after{
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid var(--accent-color);
+  transform: translateY(0) rotate(25deg);
+  opacity: 0;
+  transition: 200ms cubic-bezier(.42,0,.44,1.68);
+}
+.socials-container a:hover::before{
+  transform: translateY(-65px) rotate(0);
+  opacity: 1;
+}
+.socials-container a:hover::after{
+  transform: translateY(-42px) rotate(0);
+  opacity: 1;
+}
+#orbitContainer {
+  position: absolute;
+  top: 10px; /* adjust up/down to align above your title */
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 1.5s ease-out;
+}
+
+#orbitContainer.show {
+  transform: translateX(-50%) scale(1);
+}
+
+#orbitContainer canvas {
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+}
+/* === NAVIGATION BAR STYLES === */
+nav {
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 12px 30px;
+    margin: 20px auto;
+    max-width: 90%;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 255, 255, 0.1), 
+        transparent);
+    transition: left 0.6s ease;
+}
+
+nav:hover::before {
+    left: 100%;
+}
+
+nav a {
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 25px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+/* Hover effect with gradient border */
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 255, 0.3), 
+        rgba(255, 20, 147, 0.3), 
+        rgba(65, 105, 225, 0.3));
+    border-radius: 25px;
+    padding: 2px;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+nav a:hover::before {
+    opacity: 1;
+}
+
+/* Background fill on hover */
+nav a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, 
+        rgba(0, 255, 255, 0.15), 
+        rgba(255, 20, 147, 0.1), 
+        transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: -1;
+}
+
+nav a:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Text and background changes on hover */
+nav a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
+                 0 0 20px rgba(0, 255, 255, 0.5),
+                 0 0 30px rgba(0, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+}
+
+/* Active link style - applies to current page */
+nav a.active {
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 255, 0.2), 
+        rgba(255, 20, 147, 0.1));
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+/* Separator style */
+nav a:not(:last-child)::after {
+    content: '|';
+    position: absolute;
+    right: -15px;
+    color: rgba(0, 255, 255, 0.3);
+    font-weight: 300;
+}
+
+/* Remove separator from last item */
+nav a:last-child::after {
+    content: none;
+}
+
+/* Pulsing animation for active nav */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
+                    0 0 30px rgba(0, 255, 255, 0.4);
+    }
+}
+
+nav a:active {
+    animation: pulse-glow 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav {
+        padding: 10px 20px;
+        border-radius: 25px;
+        max-width: 95%;
+    }
+    
+    nav a {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin: 0 3px;
+    }
+    
+    nav a:not(:last-child)::after {
+        right: -10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 8px 15px;
+    }
+    
+    nav a {
+        font-size: 0.8em;
+        padding: 6px 12px;
+        margin: 0 2px;
+    }
+}
+/* === ANIMATED GLOW EFFECT FOR PROFILE PICTURE === */
+.profile-pic {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+  border: 3px solid transparent;
+  animation: profileBorderGlow 4s ease-in-out infinite;
+}
+
+/* Glow container behind the image */
+.profile-pic-container {
+  position: relative;
+  display: inline-block;
+  margin: 20px 0;
+}
+
+/* Animated glow behind the picture */
+.profile-pic-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+      #00ffff 0%, 
+      #ff1493 25%, 
+      #4169e1 50%, 
+      #ff69b4 75%, 
+      #00bfff 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite, 
+             glowPulse 3s ease-in-out infinite alternate;
+  z-index: 1;
+  filter: blur(15px);
+  opacity: 0.7;
+}
+
+/* Additional orbiting particles */
+.profile-pic-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.6) 2px, transparent 3px),
+    radial-gradient(circle at 80% 30%, rgba(255, 20, 147, 0.6) 2px, transparent 3px),
+    radial-gradient(circle at 40% 70%, rgba(65, 105, 225, 0.6) 2px, transparent 3px),
+    radial-gradient(circle at 70% 80%, rgba(255, 105, 180, 0.6) 2px, transparent 3px),
+    radial-gradient(circle at 30% 40%, rgba(0, 191, 255, 0.6) 2px, transparent 3px);
+  background-size: 240px 240px;
+  z-index: 1;
+  animation: orbitParticles 8s linear infinite;
+  opacity: 0.4;
+}
+
+/* Border glow animation */
+@keyframes profileBorderGlow {
+  0%, 100% {
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  25% {
+    border-color: rgba(255, 20, 147, 0.5);
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.4),
+                inset 0 0 25px rgba(255, 20, 147, 0.2);
+  }
+  50% {
+    border-color: rgba(65, 105, 225, 0.5);
+    box-shadow: 0 0 30px rgba(65, 105, 225, 0.5),
+                inset 0 0 30px rgba(65, 105, 225, 0.3);
+  }
+  75% {
+    border-color: rgba(255, 105, 180, 0.5);
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.4),
+                inset 0 0 25px rgba(255, 105, 180, 0.2);
+  }
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* Orbiting particles animation */
+@keyframes orbitParticles {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Hover effects */
+.profile-pic-container:hover::before {
+  opacity: 0.9;
+  filter: blur(20px);
+  animation-duration: 2s;
+}
+
+.profile-pic-container:hover .profile-pic {
+  animation-duration: 2s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .profile-pic-container::before {
+    width: 170px;
+    height: 170px;
+  }
+  
+  .profile-pic-container::after {
+    width: 190px;
+    height: 190px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile-pic-container::before {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .profile-pic-container::after {
+    width: 160px;
+    height: 160px;
+  }
+}
+/*==== portofolio ====*/
+
+.circle-image {
+  width: 200px;       /* Set the size you want */
+  height: 200px;      /* Keep width and height equal for a perfect circle */
+  border-radius: 50%; /* This makes the square image a circle */
+  object-fit: cover;  /* Ensures the image covers the area without stretching */
+}
